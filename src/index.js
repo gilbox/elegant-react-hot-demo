@@ -1,4 +1,12 @@
 import React from 'react';
 import App from './App';
+import {fromJS} from 'immutable';
+import Atom from './atom';
 
-React.render(<App />, document.getElementById('root'));
+const state = fromJS({
+  count: 0,
+});
+
+const atom = new Atom(state);
+
+React.render(<App atom={atom} />, document.getElementById('root'));

@@ -33,10 +33,13 @@
     "babel-loader": "^5.1.2",
     "eslint-plugin-react": "^2.3.0",
     "react-hot-loader": "^1.2.7",
-    "webpack": "^1.9.6",
-    "webpack-dev-server": "^1.8.2"
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
   },
   "dependencies": {
+    "elegant-react": "^0.2.0",
+    "flyd": "^0.1.14",
+    "immutable": "^3.7.4",
     "react": "^0.13.0"
   }
 }
