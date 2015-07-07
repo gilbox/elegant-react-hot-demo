@@ -6,7 +6,7 @@ import {on} from 'flyd';
 const inc = x => x + 1;
 
 const styles = {
-  main: {
+  panel: {
     position: 'fixed',
     left: 0,
     right: 0,
@@ -48,7 +48,7 @@ export default class ControlPanel extends Component {
     const {historyIndex, historyCount} = this.state;
     const {min,max,value,onChange,name} = this.props;
 
-    return <div style={styles.main}>
+    return <div style={styles.panel}>
       <Scrubber
         style={styles.scrubber}
         min={1}

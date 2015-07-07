@@ -3,27 +3,21 @@ import timeTravelPlugin from './time-travel-plugin/';
 
 window.stream = stream;
 
-const subStream = (dataStream, ...path) =>
-  flyd.map(data => data.getIn(path), dataStream);
-
 export default class Atoam {
   constructor(state) {
     this.state = state;
 
-    // used to update "watcher" App component
+    // directly-updated state, used to update "watcher" App component
     this.didSetState$ = stream();
 
+    // used to indicate "user" update
     this.didUpdateState$ = stream(state);
 
-
-
-    // used to set state of the atom via stream writes
+    // used to update state of the atom via stream pushes
+    // ie., pushes to this._update$ will NOT trigger
+    //      the this.didUpdateState$ stream
     this._update$ = stream();
     flyd.on(::this._updateState, this._update$);
-
-
-
-
   }
 
   _setState(state) {

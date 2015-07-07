@@ -21,7 +21,7 @@ export default class App extends Component {
     on(state => this.setState({state}), atom.didSetState$);
   }
 
-  // returns a stream into which you're expected to push
+  // returns a stream into which you can push
   // transform functions (data -> data)
   wiredUpdateStream(...path) {
     const s = stream();
@@ -30,7 +30,6 @@ export default class App extends Component {
   }
 
   edit(transform) {
-    console.log('edit');
     this.props.atom.updateState(transform);
   }
 

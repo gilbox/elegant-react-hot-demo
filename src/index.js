@@ -22,7 +22,7 @@ const gotoHistoryState$ = window.goto = stream();
 
 timeTravelPlugin( atom.didUpdateState$,
                   gotoHistoryState$,
-                  atom._update$,
+                  atom._update$,  // <-- "private", but we need direct access
                   historyCount$ );
 
 React.render(<TimeTravelControlPanel
