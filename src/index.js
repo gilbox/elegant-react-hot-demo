@@ -11,10 +11,8 @@ const state = module.hot.data ? module.hot.data.state :
   });
 
 const atom = new Atom(state);
-const node = document.getElementById('root');
 
-React.unmountComponentAtNode(node);
-React.render(<App atom={atom} />, node);
+hotRender(<App atom={atom} />, 'root');
 
 // setup time travel and control panel
 const historyCount$ = stream();
@@ -36,4 +34,10 @@ if (module.hot) {
   module.hot.dispose(data => {
     data.state = atom.getState();
   });
+}
+
+function hotRender(element, id) {
+  const node = document.getElementById(id);
+  React.unmountComponentAtNode(node);
+  React.render(element, node);
 }
