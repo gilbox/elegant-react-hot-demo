@@ -9,6 +9,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
 
+    console.log('------constructor');
     const wiredUpdateStream = ::this.wiredUpdateStream;
 
     createCounterPlugin( this.incrementAction$ = stream(),
@@ -21,11 +22,7 @@ export default class App extends Component {
 
   wiredUpdateStream(...path) {
     const s = stream();
-    const edit = ::this.edit;
-
-    on(transform => {
-      edit(data => data.updateIn(path, transform));
-    }, s);
+    on(sub(::this.edit, ...path), s);
     return s;
   }
 

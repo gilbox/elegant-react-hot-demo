@@ -3,7 +3,7 @@ import App from './App';
 import {fromJS} from 'immutable';
 import Atom from './atom';
 
-const state = (module.hot.data && module.hot.data.state) ||
+const state = module.hot.data ? module.hot.data.state :
   fromJS({
     count: 0,
   });
