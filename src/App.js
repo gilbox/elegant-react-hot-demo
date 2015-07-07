@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
-import {sub, elegant} from 'elegant-react';
-import {fromJS} from 'immutable';
+import {sub} from 'elegant-react';
 import Counter from './Counter';
-import {on} from 'flyd';
-import createCounterPlugin from './counter-plugin';
+import {on, stream} from 'flyd';
+import counterPlugin from './counter-plugin';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-
-    console.log('------constructor');
-    const wiredUpdateStream = ::this.wiredUpdateStream;
-
-    createCounterPlugin( this.incrementAction$ = stream(),
-                         wiredUpdateStream('count') );
-
-    // connect atom updates to component's state
+    this.setup(props);
     this.state = {state: props.atom.getState()};
-    on(state => this.setState({state}), props.atom.stateDidUpdate$);
   }
 
+  setup({atom}) {
+    const wiredUpdateStream = ::this.wiredUpdateStream;
+
+    counterPlugin( this.incrementAction$ = stream(),
+                   wiredUpdateStream('count') );
+
+    // connect atom updates to component's state
+    on(state => this.setState({state}), atom.didSetState$);
+  }
+
+  // returns a stream into which you're expected to push
+  // transform functions (data -> data)
   wiredUpdateStream(...path) {
     const s = stream();
     on(sub(::this.edit, ...path), s);
@@ -27,11 +30,14 @@ export default class App extends Component {
   }
 
   edit(transform) {
+    console.log('edit');
     this.props.atom.updateState(transform);
   }
 
   render() {
     const {state} = this.state;
-    return <Counter value={state.get('count')} increment={this.incrementAction$}  />
+    return <Counter
+            value={state.get('count')}
+            increment={this.incrementAction$}  />
   }
 }

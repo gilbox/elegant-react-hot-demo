@@ -1,5 +1,5 @@
 import flyd, {stream} from 'flyd';
-import createTimeTravelPlugin from './time-travel-plugin';
+import timeTravelPlugin from './time-travel-plugin/';
 
 window.stream = stream;
 
@@ -11,32 +11,23 @@ export default class Atoam {
     this.state = state;
 
     // used to update "watcher" App component
-    this.stateDidUpdate$ = stream();
+    this.didSetState$ = stream();
 
-    this._updateState$ = stream(state);
-    this._historyCount$ = stream();
+    this.didUpdateState$ = stream(state);
 
-    flyd.on(count => console.log('count', count), this._historyCount$);
 
-    window.goto = this.gotoHistoryState$ = stream();
 
     // used to set state of the atom via stream writes
     this._update$ = stream();
     flyd.on(::this._updateState, this._update$);
 
-    createTimeTravelPlugin( this._updateState$,
-                            this.gotoHistoryState$,
-                            this._update$,
-                            this._historyCount$ );
 
-  }
 
-  gotoHistoryState(index) {
-    this.gotoHistoryState$(index);
+
   }
 
   _setState(state) {
-    return this.stateDidUpdate$(this.state = state).val;
+    return this.didSetState$(this.state = state).val;
   }
 
   _updateState(transform) {
@@ -48,6 +39,6 @@ export default class Atoam {
   }
 
   updateState(transform) {
-    return this._updateState$(this._updateState(transform)).val;
+    return this.didUpdateState$(this._updateState(transform)).val;
   }
 }

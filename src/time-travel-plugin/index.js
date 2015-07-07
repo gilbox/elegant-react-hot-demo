@@ -2,12 +2,14 @@ import {on} from 'flyd';
 
 const history = [];
 
-export default function createTimeTravelPlugin(
+export default function timeTravelPlugin(
   state$,
   gotoHistoryState$,
   outputState$,
   outputCount$
 ) {
+  outputCount$(history.length);  // for reloads
+
   on(state => {
     outputCount$(history.push(state))
   }, state$);

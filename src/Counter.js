@@ -17,11 +17,11 @@ const styles = {
 export default class Counter extends Component {
   render() {
     const {value,increment} = this.props;
-    
+
     return (
       <div onClick={increment} style={styles.counter}>
         {value}
       </div>
-    );
+    )
   }
 }
