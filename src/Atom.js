@@ -6,7 +6,7 @@ window.stream = stream;
 const subStream = (dataStream, ...path) =>
   flyd.map(data => data.getIn(path), dataStream);
 
-export default class Atom {
+export default class Atoam {
   constructor(state) {
     this.state = state;
 

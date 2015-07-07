@@ -1,4 +1,4 @@
-import flyd from 'flyd';
+import {on} from 'flyd';
 
 export default function createTimeTravelPlugin(
   state$,
@@ -8,12 +8,12 @@ export default function createTimeTravelPlugin(
 ) {
   const history = [];
 
-  flyd.on(state => {
+  on(state => {
     outputCount$(history.push(state))
     console.log('history', history);
   }, state$);
 
-  flyd.on(index => {
+  on(index => {
     if (index >= history.length) {
       throw Error(`Requests history index ${index} but there are only ${history.length} historic states.`)
     }
