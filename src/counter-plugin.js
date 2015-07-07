@@ -6,5 +6,5 @@ export default function counterPlugin(
   incrementAction$,
   output$
 ) {
-  on(increment => output$(inc), incrementAction$);
+  on(action => output$(inc), incrementAction$);
 }
