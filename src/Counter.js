@@ -6,14 +6,20 @@ const inc = x => x + 1;
 
 const styles = {
   row: {
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
     width: '100%',
     cursor: 'pointer',
     // background: '#efefef'
   },
   anchor: {
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
     position: 'absolute'
   },
   counter: {
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
     background: 'green',
     borderRadius: '50%',
     width: '30px',
