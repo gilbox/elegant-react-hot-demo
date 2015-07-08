@@ -6,7 +6,7 @@ import Atom from './atom';
 import timeTravelPlugin from './time-travel-plugin/'
 import TimeTravelControlPanel from './time-travel-plugin/ControlPanel';
 
-const state = module.hot.data ? module.hot.data.state :
+const state = module.hot && module.hot.data ? module.hot.data.state :
   fromJS({
     counts: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   });

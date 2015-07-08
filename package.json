@@ -4,7 +4,8 @@
   "description": "Demo of stream-based plugins with hot reload and time travel for react",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "build": "webpack --config webpack.config.build.js"
   },
   "repository": {
     "type": "git",
