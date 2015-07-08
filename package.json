@@ -1,7 +1,7 @@
 {
-  "name": "react-hot-boilerplate",
+  "name": "elegant-react-hot-demo",
   "version": "1.0.0",
-  "description": "Boilerplate for ReactJS project with hot code reloading",
+  "description": "Demo of stream-based plugins with hot reload and time travel for react",
   "scripts": {
     "start": "node server.js",
     "lint": "eslint src"
@@ -21,12 +21,12 @@
     "edit",
     "webpack"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Gil Birman <birmangil@gmail.com> (http://github.com/gilbox)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/gilbox/elegant-react-hot-demo/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "homepage": "https://github.com/gilbox/elegant-react-hot-demo/issues",
   "devDependencies": {
     "babel-core": "^5.4.7",
     "babel-eslint": "^3.1.9",
