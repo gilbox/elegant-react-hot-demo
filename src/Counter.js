@@ -20,7 +20,6 @@ const styles = {
   counter: {
     userSelect: 'none',
     WebkitUserSelect: 'none',
-    background: 'green',
     borderRadius: '50%',
     width: '30px',
     height: '30px',
@@ -38,7 +37,8 @@ const styles = {
 @elegant
 export default class Counter extends Component {
   static defaultProps = {
-    height: 'auto'
+    height: 'auto',
+    color: 'green'
   }
 
   getValues() {
@@ -68,7 +68,7 @@ export default class Counter extends Component {
   }
 
   render() {
-    const {value,increment,height} = this.props;
+    const {value,increment,height,color} = this.props;
 
     return (
       <div onClick={increment}>
@@ -76,7 +76,7 @@ export default class Counter extends Component {
         {configs =>
             <div style={{...styles.row, height}}>
               {Object.keys(configs).map(key =>
-                <div style={{...styles.counter, transform: `translateX(${configs[key].offset.val}vw)`, opacity: configs[key].opacity.val }} key={key}></div>)}
+                <div style={{...styles.counter, background: color, transform: `translateX(${configs[key].offset.val}vw)`, opacity: configs[key].opacity.val }} key={key}></div>)}
             </div>
         }</TransitionSpring>
       </div>
