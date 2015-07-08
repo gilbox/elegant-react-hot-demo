@@ -6,6 +6,8 @@ demo with FRP stream plugins (using [flyd](https://github.com/paldepind/flyd)),
 time travel, and hot updates
 using just webpack HMR (without react-hot-loader).
 
+#### [Live Demo](http://gilbox.github.io/elegant-react-hot-demo/build/)
+
 ### What are stream plugins?
 
 Similar to Flux stores, stream plugins manage application state.
