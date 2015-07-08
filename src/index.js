@@ -1,3 +1,4 @@
+import 'core-js/shim';  // for Array.fill
 import React from 'react';
 import App from './App';
 import {fromJS} from 'immutable';
@@ -7,7 +8,7 @@ import TimeTravelControlPanel from './time-travel-plugin/ControlPanel';
 
 const state = module.hot.data ? module.hot.data.state :
   fromJS({
-    count: 0,
+    counts: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
   });
 
 const atom = new Atom(state);

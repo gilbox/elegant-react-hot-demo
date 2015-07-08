@@ -7,15 +7,18 @@ import counterPlugin from './counter-plugin';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.setup(props);
     this.state = {state: props.atom.getState()};
   }
 
-  setup({atom}) {
+  componentWillMount() {
+    const {atom} = this.props;
     const wiredUpdateStream = ::this.wiredUpdateStream;
+    const state = atom.getState();
 
-    counterPlugin( this.incrementAction$ = stream(),
-                   wiredUpdateStream('count') );
+    this.incrementActionStreams =
+      state.get('counts').map((_,i) =>
+        counterPlugin(stream(), wiredUpdateStream('counts', i))
+      ).toArray();
 
     // connect atom updates to component's state
     on(state => this.setState({state}), atom.didSetState$);
@@ -35,8 +38,14 @@ export default class App extends Component {
 
   render() {
     const {state} = this.state;
-    return <Counter
-            value={state.get('count')}
-            increment={this.incrementAction$}  />
+
+    return <div>
+      {state.get('counts').map((count,index) =>
+        <Counter
+          key={index}
+          value={count}
+          increment={this.incrementActionStreams[index]}  />
+      ).toArray()}
+    </div>
   }
 }

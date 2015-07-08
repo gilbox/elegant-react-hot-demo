@@ -8,6 +8,8 @@ const inc = x => x + 1;
 const styles = {
   panel: {
     position: 'fixed',
+    zIndex: 1000,
+    opacity: 0.7,
     left: 0,
     right: 0,
     bottom: 0,

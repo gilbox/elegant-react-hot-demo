@@ -7,4 +7,5 @@ export default function counterPlugin(
   output$
 ) {
   on(action => output$(inc), incrementAction$);
+  return incrementAction$;
 }
