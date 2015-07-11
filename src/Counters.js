@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
 import Counter from './Counter';
-import derive, {track} from './create-derive-decorator';
+import derive, {track} from './derive-decorator';
 import Spring from 'react-motion';
 
 const colors = ['#218C8D','#6CCECB','#F9E559','#EF7126','#8EDC9D','#473E3F'];
@@ -26,7 +26,7 @@ const colorCount = colors.length;
       }
     }) ).toObject();
   }
-})
+}, true) // true enables debug mode
 export default class Counters extends Component {
   render() {
     const {items,incrementActionStreams,lineHeight} = this.props;
