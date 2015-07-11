@@ -11,7 +11,7 @@ const config = [80,13];
 @elegant
 @derive({
   @track('counts', 'sortOrder')
-  items({counts, sortOrder}) {
+  items({counts, sortOrder, incrementActionStreams}) {
     // map `counts` object indexes to sort order
     const order =
       counts.keySeq().sortBy(index =>
@@ -22,6 +22,8 @@ const config = [80,13];
     return counts.map( (count, index) => ({
       count,
       index,
+      color: colors[index%colorCount],
+      increment: { val: incrementActionStreams[index], config: [] }, // <-- using an un-@tracked prop
       sortOrder: { val: order[index], config }
     }) ).toArray();
   }
@@ -38,8 +40,8 @@ export default class Counters extends Component {
               key={index}
               style={{ top: lineHeight * item.sortOrder.val, position: 'absolute', left: 0 }}
               value={item.count}
-              color={colors[index%colorCount]}
-              increment={incrementActionStreams[index]} /> )
+              color={item.color}
+              increment={item.increment.val} /> )
       }</Spring>
     </div>
   }
