@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
-import {TransitionSpring} from './react-animation/Spring';
+import {TransitionSpring} from 'react-motion';
 
 const inc = x => x + 1;
 
@@ -10,7 +10,6 @@ const styles = {
     WebkitUserSelect: 'none',
     width: '100%',
     cursor: 'pointer',
-    // background: '#efefef'
   },
   anchor: {
     userSelect: 'none',
@@ -46,7 +45,7 @@ export default class Counter extends Component {
     const configs = {};
 
     for (let i = 0; i < value+1; i++) {
-      configs[i] = {opacity: {val:1}, offset: {val:0, config: [150, 20]}}
+      configs[i] = {opacity: {val:1}, offset: {val:0, config: [90, 17]}}
     }
     return configs;
   }
@@ -71,7 +70,7 @@ export default class Counter extends Component {
     const {value,increment,height,color} = this.props;
 
     return (
-      <div onClick={increment}>
+      <div onClick={increment} style={this.props.style}>
         <TransitionSpring endValue={::this.getValues()} willLeave={::this.willLeave} willEnter={::this.willEnter}>
         {configs =>
             <div style={{...styles.row, height}}>

@@ -1,38 +1,28 @@
 import React, { Component } from 'react';
 import {sub} from 'elegant-react';
-import Counter from './Counter';
+import Counters from './Counters';
 import {on, stream} from 'flyd';
 import counterPlugin from './counter-plugin';
 
-const colors = ['#218C8D','#6CCECB','#F9E559','#EF7126','#8EDC9D','#473E3F'];
-const colorCount = colors.length;
 
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.edit = ::this.edit;
     this.state = {state: props.atom.getState()};
   }
 
   componentWillMount() {
     const {atom} = this.props;
-    const wiredUpdateStream = ::this.wiredUpdateStream;
     const state = atom.getState();
 
     this.incrementActionStreams =
       state.get('counts').map((_,i) =>
-        counterPlugin(stream(), wiredUpdateStream('counts', i))
+        counterPlugin(stream(), atom.wiredUpdateStream('counts', i))
       ).toArray();
 
     // connect atom updates to component's state
     on(state => this.setState({state}), atom.didSetState$);
-  }
-
-  // returns a stream into which you can push
-  // transform functions (data -> data)
-  wiredUpdateStream(...path) {
-    const s = stream();
-    on(sub(::this.edit, ...path), s);
-    return s;
   }
 
   edit(transform) {
@@ -41,15 +31,34 @@ export default class App extends Component {
 
   render() {
     const {state} = this.state;
+    const sort = state.get('sort');
+    const sortOrder = state.get('sortOrder');
+    const compact = state.get('compact');
+    const toggleSort = sub(this.edit, 'sort');
+    const toggleSortOrder = sub(this.edit, 'sortOrder');
+    const toggleCompact = sub(this.edit, 'compact');
 
     return <div>
-      {state.get('counts').map((count,index) =>
-        <Counter
-          key={index}
-          value={count}
-          color={colors[index%colorCount]}
-          increment={this.incrementActionStreams[index]}  />
-      ).toArray()}
+      <label style={{ position: 'absolute', top: 5, right: 50}}>
+        <input type="checkbox" value={sort}
+               onChange={event => toggleSort(v => !v)}/>
+        sort
+      </label>
+      <label style={{ position: 'absolute', top: 5, right: 100}}>
+        <input type="checkbox" value={sortOrder===1} disabled={!sort}
+               onChange={event => toggleSortOrder(v => -v)}/>
+        sort asc
+      </label>
+      <label style={{ position: 'absolute', top: 5, right: 180}}>
+        <input type="checkbox" value={compact}
+               onChange={event => toggleCompact(c => !c)}/>
+        compact
+      </label>
+      <Counters
+        lineHeight={compact ? 30 : 40}
+        sortOrder={sortOrder * ~~sort}
+        counts={state.get('counts')}
+        incrementActionStreams={this.incrementActionStreams} />
     </div>
   }
 }
