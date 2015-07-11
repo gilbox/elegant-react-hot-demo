@@ -29,12 +29,14 @@ export default class App extends Component {
 
   render() {
     const {state} = this.state;
+    const {edit} = this;
+    
     const sort = state.get('sort');
     const sortOrder = state.get('sortOrder');
     const compact = state.get('compact');
-    const toggleSort = sub(this.edit, 'sort');
-    const toggleSortOrder = sub(this.edit, 'sortOrder');
-    const toggleCompact = sub(this.edit, 'compact');
+    const toggleSort = sub(edit, 'sort');
+    const toggleSortOrder = sub(edit, 'sortOrder');
+    const toggleCompact = sub(edit, 'compact');
 
     return <div>
       <label style={{ position: 'absolute', top: 5, right: 50}}>
