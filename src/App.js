@@ -18,7 +18,7 @@ export default class App extends Component {
 
     this.incrementActionStreams =
       state.get('counts').map((_,i) =>
-        counterPlugin(stream(), atom.wiredUpdateStream('counts', i))
+        counterPlugin(stream(), sub(this.edit, 'counts', i))
       ).toArray();
 
     // connect atom updates to component's state

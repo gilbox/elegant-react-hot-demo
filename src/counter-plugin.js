@@ -4,8 +4,8 @@ const inc = x => x + 1;
 
 export default function counterPlugin(
   incrementAction$,
-  output$
+  output
 ) {
-  on(action => output$(inc), incrementAction$);
+  on(action => output(inc), incrementAction$);
   return incrementAction$;
 }
