@@ -31,7 +31,7 @@ function createDeriveDecorator(React, debug) {
       }
 
       componentWillReceiveProps(nextProps) {
-        const derivedProps = {...nextProps};
+        var derivedProps; // will be lazyily-initialized
 
         Object.keys(options).forEach(key => {
           const xf = options[key];
@@ -47,13 +47,16 @@ function createDeriveDecorator(React, debug) {
               changed = changed || (this.props[p] !== nextProps[p]);
             });
             if (!changed) return derivedProps[key] = this.derivedProps[key];
+
+            // lazily copy nextProps
+            derivedProps = derivedProps || {...nextProps}
           }
 
           if (debug) console.log(`${DeriveDecorator.displayName}: recalculating derived prop '${key}'`);
           derivedProps[key] = xf(nextProps);
         });
 
-        this.derivedProps = derivedProps;
+        this.derivedProps = derivedProps || nextProps;
       }
 
       render() {
