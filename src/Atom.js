@@ -41,6 +41,9 @@ export default class Atoam {
 
   // returns a stream into which you can push
   // transform functions (data -> data)
+  //
+  // Todo: I'm not sure if this is really useful because a
+  //       subedit function could be used instead
   wiredUpdateStream(...path) {
     // todo: watch for stream end and remove the stream from the array
     let s = this.wiredUpdateStreams.getIn(path);
