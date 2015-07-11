@@ -24,7 +24,7 @@ export default function derive(options={}, debug=false) {
       });
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillUpdate(nextProps) {
       const derivedProps = {...nextProps};
 
       Object.keys(options).forEach(key => {
