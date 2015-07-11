@@ -8,8 +8,10 @@ import counterPlugin from './counter-plugin';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.edit = ::this.edit;
-    this.state = {state: props.atom.getState()};
+    const {atom} = this.props;
+
+    this.edit = ::atom.updateState;
+    this.state = {state: atom.getState()};
   }
 
   componentWillMount() {
@@ -23,10 +25,6 @@ export default class App extends Component {
 
     // connect atom updates to component's state
     on(state => this.setState({state}), atom.didSetState$);
-  }
-
-  edit(transform) {
-    this.props.atom.updateState(transform);
   }
 
   render() {
