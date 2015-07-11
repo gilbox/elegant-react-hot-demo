@@ -82,3 +82,5 @@ open http://localhost:3000
 * [react-hot-loader](https://github.com/gaearon/react-hot-loader)
 * elegant-react
 * flyd
+* react-motion
+* immutable
