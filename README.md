@@ -35,7 +35,7 @@ logic encapsulated outside of your component tree.
 `@derive` is an ES7 decorator that provides a nice declarative way to
 create a HoC that creates new props for it's child (decorated) component,
 which is data derived from it's props. `@derive`'s single argument is an
-object with functions that transforms props.
+object with functions that transform props.
 
 When used in conjunction with `@track` to specify which props will cause
 a derived method to require re-calculation, `@derive` will automatically
