@@ -18,12 +18,9 @@ const colorCount = colors.length;
 
     // convert to object with tweenable sortOrder property
     return counts.map( (count, index) => ({
-      config: [80,13],
-      val: {
-        count: {val:count, config: []},
-        index: {val:index, config: []},
-        sortOrder: sortedIndex[index]
-      }
+      count,
+      index,
+      sortOrder: { val: sortedIndex[index], config: [80,13] }
     }) ).toObject();
   }
 }, true) // true enables debug mode
@@ -39,8 +36,8 @@ export default class Counters extends Component {
           return  (
             <Counter
               key={index}
-              style={{ top: lineHeight * item.val.sortOrder, position: 'absolute', left: 0 }}
-              value={item.val.count.val}
+              style={{ top: lineHeight * item.sortOrder.val, position: 'absolute', left: 0 }}
+              value={item.count}
               color={colors[index%colorCount]}
               increment={incrementActionStreams[index]} /> )
         })
