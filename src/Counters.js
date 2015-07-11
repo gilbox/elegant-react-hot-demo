@@ -11,17 +11,18 @@ const colorCount = colors.length;
 @derive({
   @track('counts', 'sortOrder')
   items({counts, sortOrder}) {
-    // map counts object indexes to sort order
-    const sortedIndex =
+    // map `counts` object indexes to sort order
+    const order =
       counts.keySeq().sortBy(index =>
-        sortOrder*counts.get(index)).toKeyedSeq().flip().toObject();
+        sortOrder*counts.get(index)
+      ).toKeyedSeq().flip().toObject();
 
-    // convert to object with tweenable sortOrder property
+    // convert to array with tweenable sortOrder property
     return counts.map( (count, index) => ({
       count,
       index,
-      sortOrder: { val: sortedIndex[index], config: [80,13] }
-    }) ).toObject();
+      sortOrder: { val: order[index], config: [80,13] }
+    }) ).toArray();
   }
 }, true) // true enables debug mode
 export default class Counters extends Component {
@@ -31,16 +32,13 @@ export default class Counters extends Component {
     return <div>
       <Spring endValue={items}>
       { tweens =>
-        Object.keys(tweens).map(index => {
-          const item = tweens[index];
-          return  (
+        tweens.map((item,index) =>
             <Counter
               key={index}
               style={{ top: lineHeight * item.sortOrder.val, position: 'absolute', left: 0 }}
               value={item.count}
               color={colors[index%colorCount]}
               increment={incrementActionStreams[index]} /> )
-        })
       }</Spring>
     </div>
   }
