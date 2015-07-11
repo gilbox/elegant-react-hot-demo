@@ -25,7 +25,7 @@ export default function derive(options={}, debug=false) {
     }
 
     componentWillReceiveProps(nextProps) {
-      const derivedProps = {...nextProps}; // will be lazyily-initialized
+      const derivedProps = {...nextProps};
 
       Object.keys(options).forEach(key => {
         const xf = options[key];
