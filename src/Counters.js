@@ -6,6 +6,7 @@ import Spring from 'react-motion';
 
 const colors = ['#218C8D','#6CCECB','#F9E559','#EF7126','#8EDC9D','#473E3F'];
 const colorCount = colors.length;
+const config = [80,13];
 
 @elegant
 @derive({
@@ -21,7 +22,7 @@ const colorCount = colors.length;
     return counts.map( (count, index) => ({
       count,
       index,
-      sortOrder: { val: order[index], config: [80,13] }
+      sortOrder: { val: order[index], config }
     }) ).toArray();
   }
 }, true) // true enables debug mode
