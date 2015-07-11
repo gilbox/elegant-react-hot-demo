@@ -14,7 +14,7 @@ const state = module.hot && module.hot.data ? module.hot.data.state :
     counts: [0,0,0,0,0,0,0,0,0]
   });
 
-const atom = new Atom(state);
+const atom = window.atom = new Atom(state);
 
 hotRender(<App atom={atom} />, 'root');
 

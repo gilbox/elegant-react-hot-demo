@@ -40,17 +40,19 @@ export default class App extends Component {
 
     return <div>
       <label style={{ position: 'absolute', top: 5, right: 50}}>
-        <input type="checkbox" value={sort}
+        <input type="checkbox" checked={sort}
                onChange={event => toggleSort(v => !v)}/>
         sort
       </label>
       <label style={{ position: 'absolute', top: 5, right: 100}}>
-        <input type="checkbox" value={sortOrder===1} disabled={!sort}
-               onChange={event => toggleSortOrder(v => -v)}/>
+        <input type="checkbox" checked={sortOrder===1}
+               onChange={event => {
+                toggleSort(v => true);
+                toggleSortOrder(v => -v)}}/>
         sort asc
       </label>
       <label style={{ position: 'absolute', top: 5, right: 180}}>
-        <input type="checkbox" value={compact}
+        <input type="checkbox" checked={compact}
                onChange={event => toggleCompact(c => !c)}/>
         compact
       </label>
