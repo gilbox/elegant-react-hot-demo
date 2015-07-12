@@ -80,7 +80,8 @@ open http://localhost:3000
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
 * [babel-loader](https://github.com/babel/babel-loader)
 * [react-hot-loader](https://github.com/gaearon/react-hot-loader)
-* elegant-react
-* flyd
-* react-motion
-* immutable
+* [elegant-react](https://github.com/gilbox/elegant-react)
+* [react-derive](https://github.com/gilbox/react-derive)
+* [flyd](https://github.com/paldepind/flyd)
+* [react-motion](https://github.com/chenglou/react-motion)
+* [immutable](https://github.com/facebook/immutable-js/)
