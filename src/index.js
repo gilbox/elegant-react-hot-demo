@@ -1,4 +1,4 @@
-// import 'core-js/shim';  // for Array.fill
+import 'core-js/shim';  // for Array.fill
 import React from 'react';
 import App from './App';
 import {fromJS} from 'immutable';

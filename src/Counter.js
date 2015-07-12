@@ -41,13 +41,9 @@ export default class Counter extends Component {
   }
 
   getValues() {
-    const {value} = this.props;
-    const configs = {};
-
-    for (let i = 0; i < value+1; i++) {
-      configs[i] = {opacity: {val:1}, offset: {val:0, config: [90, 17]}}
-    }
-    return configs;
+    return Array(this.props.value+1)
+            .fill({opacity: {val:1},
+                   offset: {val:0, config: [90, 17]}});
   }
 
   willEnter(key) {
@@ -71,14 +67,25 @@ export default class Counter extends Component {
 
     return (
       <div onClick={increment} style={this.props.style}>
-        <TransitionSpring endValue={::this.getValues()} willLeave={::this.willLeave} willEnter={::this.willEnter}>
+        <TransitionSpring
+          endValue={this.getValues()}
+          willLeave={::this.willLeave}
+          willEnter={::this.willEnter}>
         {configs =>
             <div style={{...styles.row, height}}>
-              {Object.keys(configs).map(key =>
-                <div style={{...styles.counter, background: color, transform: `translateX(${configs[key].offset.val}vw)`, opacity: configs[key].opacity.val }} key={key}></div>)}
+              { configs::map((config, key) => // todo: change to configs.map when react-motion supports it
+                <div key={key}
+                  style={{...styles.counter,
+                    background: color,
+                    transform: `translateX(${config.offset.val}vw)`,
+                    opacity: config.opacity.val }} />)}
             </div>
         }</TransitionSpring>
       </div>
     )
   }
+}
+
+function map(fn) {
+  return Object.keys(this).map(key => fn(this[key], key));
 }

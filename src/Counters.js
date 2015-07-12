@@ -20,11 +20,10 @@ const config = [80,13];
 
     // convert to array with tweenable sortOrder property
     return counts.map( (count, index) => ({
-      count,
-      index,
+      count,  // todo: simplify these
       color: colors[index%colorCount],
-      increment: { val: incrementActionStreams[index], config: [] }, // <-- using an un-@tracked prop
-      sortOrder: { val: order[index], config }
+      increment: { val: incrementActionStreams[index], config: [] }, // <-- using an un-@track-ed prop
+      sortOrder: { val: order[index], config },
     }) ).toArray();
   }
 }, true) // true enables debug mode
@@ -35,13 +34,13 @@ export default class Counters extends Component {
     return <div>
       <Spring endValue={items}>
       { tweens =>
-        tweens.map((item,index) =>
+        tweens.map(({count,sortOrder,color,increment},index) =>
             <Counter
               key={index}
-              style={{ top: lineHeight * item.sortOrder.val, position: 'absolute', left: 0 }}
-              value={item.count}
-              color={item.color}
-              increment={item.increment.val} /> )
+              style={{ top: lineHeight * sortOrder.val, position: 'absolute', left: 0 }}
+              value={count}
+              color={color}
+              increment={increment.val} /> )
       }</Spring>
     </div>
   }
