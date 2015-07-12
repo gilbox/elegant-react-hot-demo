@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
 import Counter from './Counter';
-import derive, {track} from './derive-decorator';
+import {derive, track} from 'react-derive';
 import Spring from 'react-motion';
 
 const colors = ['#218C8D','#6CCECB','#F9E559','#EF7126','#8EDC9D','#473E3F'];
