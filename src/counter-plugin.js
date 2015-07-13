@@ -1,11 +1,11 @@
-import {on} from 'flyd';
+import {stream, on} from 'flyd';
 
 const inc = x => x + 1;
 
 export default function counterPlugin(
-  incrementAction$,
-  output
+  output=stream(),
+  incrementAction$=stream()
 ) {
   on(action => output(inc), incrementAction$);
-  return incrementAction$;
+  return {output, incrementAction$};
 }

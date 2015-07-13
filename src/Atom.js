@@ -19,8 +19,8 @@ export default class Atoam {
     // used to update state of the atom via stream pushes
     // ie., pushes to this._update$ will NOT trigger
     //      the this.didUpdateState$ stream
-    this._update$ = stream();
-    flyd.on(::this._updateState, this._update$);
+    // this._update$ = stream();
+    // flyd.on(::this._updateState, this._update$);
   }
 
   _setState(state) {
@@ -43,14 +43,15 @@ export default class Atoam {
   // transform functions (data -> data)
   //
   // Todo: I'm not sure if this is really useful because a
-  //       subedit function could be used instead
-  wiredUpdateStream(...path) {
-    // todo: watch for stream end and remove the stream from the array
-    let s = this.wiredUpdateStreams.getIn(path);
-    if (!s) this.wiredUpdateStreams.setIn(path, s = stream());
-    else return s;
-
-    on(sub(::this.updateState, ...path), s);
-    return s;
-  }
+  //       subedit function could be used instead. However,
+  //       it might be useful that streams can be closed at any time
+  // wiredUpdateStream(...path) {
+  //   // todo: watch for stream end and remove the stream from the array
+  //   let s = this.wiredUpdateStreams.getIn(path);
+  //   if (!s) this.wiredUpdateStreams.setIn(path, s = stream());
+  //   else return s;
+  //
+  //   on(sub(::this.updateState, ...path), s);
+  //   return s;
+  // }
 }

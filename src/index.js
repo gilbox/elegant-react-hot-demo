@@ -6,6 +6,7 @@ import Atom from './atom';
 import timeTravelPlugin from './time-travel-plugin/'
 import TimeTravelControlPanel from './time-travel-plugin/ControlPanel';
 
+// initial app state
 const state = module.hot && module.hot.data ? module.hot.data.state :
   fromJS({
     sort: false,
@@ -19,13 +20,10 @@ const atom = window.atom = new Atom(state);
 hotRender(<App atom={atom} />, 'root');
 
 // setup time travel and control panel
-const historyCount$ = stream();
-const gotoHistoryState$ = window.goto = stream();
 
-timeTravelPlugin( atom.didUpdateState$,
-                  gotoHistoryState$,
-                  atom._update$,  // <-- "private", but we need direct access
-                  historyCount$ );
+const {outputCount: historyCount$, gotoHistoryState$} =
+  timeTravelPlugin( {state$: atom.didUpdateState$,
+                outputState: ::atom._updateState });  // <-- "private", but we need direct access );
 
 React.render(<TimeTravelControlPanel
                 historyCount$={historyCount$}

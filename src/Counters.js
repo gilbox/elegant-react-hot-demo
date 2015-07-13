@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
 import Counter from './Counter';
 import {derive, track} from 'react-derive';
-import Spring from 'react-motion';
+import Spring from './react-motion';
 
 const colors = ['#218C8D','#6CCECB','#F9E559','#EF7126','#8EDC9D','#473E3F'];
 const colorCount = colors.length;
-const config = [80,13];
+const config = [150,13];
 
 @elegant
 @derive({

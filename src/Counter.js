@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
-import {TransitionSpring} from 'react-motion';
+import {TransitionSpring} from './react-motion';
 
 const inc = x => x + 1;
 
@@ -73,12 +73,12 @@ export default class Counter extends Component {
           willEnter={::this.willEnter}>
         {configs =>
             <div style={{...styles.row, height}}>
-              { configs::map((config, key) => // todo: change to configs.map when react-motion supports it
+              { configs::map(({offset,opacity}, key) => // todo: change to configs.map when react-motion supports it
                 <div key={key}
                   style={{...styles.counter,
                     background: color,
-                    transform: `translateX(${config.offset.val}vw)`,
-                    opacity: config.opacity.val }} />)}
+                    transform: `translateX(${offset.val}vw)`,
+                    opacity: opacity.val }} />)}
             </div>
         }</TransitionSpring>
       </div>

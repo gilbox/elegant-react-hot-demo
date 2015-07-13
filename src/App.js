@@ -20,7 +20,7 @@ export default class App extends Component {
 
     this.incrementActionStreams =
       state.get('counts').map((_,i) =>
-        counterPlugin(stream(), sub(this.edit, 'counts', i))
+        counterPlugin(sub(this.edit, 'counts', i)).incrementAction$
       ).toArray();
 
     // connect atom updates to component's state
@@ -30,7 +30,7 @@ export default class App extends Component {
   render() {
     const {state} = this.state;
     const {edit} = this;
-    
+
     const sort = state.get('sort');
     const sortOrder = state.get('sortOrder');
     const compact = state.get('compact');

@@ -1,13 +1,13 @@
-import {on} from 'flyd';
+import {stream,on} from 'flyd';
 
 const history = [];
 
-export default function timeTravelPlugin(
-  state$,
-  gotoHistoryState$,
-  outputState,
-  outputCount
-) {
+export default function timeTravelPlugin({
+  state$=stream(),
+  gotoHistoryState$=stream(),
+  outputState=stream(),
+  outputCount=stream()
+}) {
   outputCount(history.length);  // for reloads
 
   on(state => {
@@ -20,4 +20,11 @@ export default function timeTravelPlugin(
     }
     outputState(state => history[index]);
   }, gotoHistoryState$);
+
+  return {
+    state$,
+    gotoHistoryState$,
+    outputState,
+    outputCount
+  }
 }
