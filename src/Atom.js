@@ -1,26 +1,16 @@
-import flyd, {on,stream} from 'flyd';
-import timeTravelPlugin from './time-travel-plugin/';
-import {Map as IMap} from 'immutable';
-import {sub} from 'elegant-react';
+import {stream} from 'flyd';
 
 window.stream = stream;
 
 export default class Atoam {
   constructor(state) {
-    this.wiredUpdateStreams = IMap({});
     this.state = state;
 
     // directly-updated state, used to update "watcher" App component
     this.didSetState$ = stream();
 
     // used to indicate "user" update
-    this.didUpdateState$ = stream(state);
-
-    // used to update state of the atom via stream pushes
-    // ie., pushes to this._update$ will NOT trigger
-    //      the this.didUpdateState$ stream
-    // this._update$ = stream();
-    // flyd.on(::this._updateState, this._update$);
+    this.didUpdateState$ = stream();
   }
 
   _setState(state) {
@@ -38,20 +28,4 @@ export default class Atoam {
   updateState(transform) {
     return this.didUpdateState$(this._updateState(transform)).val;
   }
-
-  // returns a stream into which you can push
-  // transform functions (data -> data)
-  //
-  // Todo: I'm not sure if this is really useful because a
-  //       subedit function could be used instead. However,
-  //       it might be useful that streams can be closed at any time
-  // wiredUpdateStream(...path) {
-  //   // todo: watch for stream end and remove the stream from the array
-  //   let s = this.wiredUpdateStreams.getIn(path);
-  //   if (!s) this.wiredUpdateStreams.setIn(path, s = stream());
-  //   else return s;
-  //
-  //   on(sub(::this.updateState, ...path), s);
-  //   return s;
-  // }
 }
