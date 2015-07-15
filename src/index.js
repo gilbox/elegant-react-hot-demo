@@ -23,7 +23,7 @@ hotRender(<App atom={atom} />, 'root');
 
 const {outputCount: historyCount$, gotoHistoryState$} =
   timeTravelPlugin( {state$: atom.didUpdateState$,
-                outputState: ::atom._updateState });  // <-- "private", but we need direct access );
+                outputState: ::atom.silentlyUpdateState });
 
 React.render(<TimeTravelControlPanel
                 historyCount$={historyCount$}
