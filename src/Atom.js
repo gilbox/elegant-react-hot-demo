@@ -1,6 +1,6 @@
 import {stream} from 'flyd';
 
-export default class Atoam {
+export default class Atom {
   constructor(state) {
     this.state = state;
 

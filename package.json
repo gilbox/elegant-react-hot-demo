@@ -44,6 +44,6 @@
     "immutable": "^3.7.4",
     "react": "^0.13.3",
     "react-derive": "0.0.3",
-    "react-motion": "0.0.3"
+    "react-motion": "^0.1.0"
   }
 }

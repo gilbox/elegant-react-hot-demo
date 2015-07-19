@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
-import {TransitionSpring} from './react-motion';
+import {TransitionSpring} from 'react-motion';
 
 const inc = x => x + 1;
 
@@ -41,9 +41,17 @@ export default class Counter extends Component {
   }
 
   getValues() {
-    return Array(this.props.value+1)
-            .fill({opacity: {val:1},
-                   offset: {val:0, config: [90, 17]}});
+    const configs = {};
+    for (let i=0; i<this.props.value+1; i++) {
+      configs[i] = {opacity: {val:1},
+                     offset: {val:0, config: [90, 17]}}
+    }
+    return configs;
+
+    // todo: react-motion doesn't support arrays anymore:
+    // return Array(this.props.value+1)
+    //         .fill({opacity: {val:1},
+    //                 offset: {val:0, config: [90, 17]}});
   }
 
   willEnter(key) {
@@ -73,7 +81,7 @@ export default class Counter extends Component {
           willEnter={::this.willEnter}>
         {configs =>
             <div style={{...styles.row, height}}>
-              { configs::map(({offset,opacity}, key) => // todo: change to configs.map when react-motion supports it
+              { configs::map(({offset,opacity}, key) => // todo: change to configs.map if react-motion ever supports arrays
                 <div key={key}
                   style={{...styles.counter,
                     background: color,

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {elegant, sub} from 'elegant-react';
 import Counter from './Counter';
 import {derive, track} from 'react-derive';
-import Spring from './react-motion';
+import {Spring} from 'react-motion';
 
 const colors = ['#218C8D','#6CCECB','#F9E559','#EF7126','#8EDC9D','#473E3F'];
 const colorCount = colors.length;
@@ -34,13 +34,15 @@ export default class Counters extends Component {
     return <div>
       <Spring endValue={items}>
       { tweens =>
-        tweens.map(({count,sortOrder,color,increment},index) =>
+        <div>
+          {tweens.map(({count,sortOrder,color,increment},index) =>
             <Counter
               key={index}
               style={{ top: lineHeight * sortOrder.val, position: 'absolute', left: 0 }}
               value={count}
               color={color}
-              increment={increment.val} /> )
+              increment={increment.val} /> )}
+        </div>
       }</Spring>
     </div>
   }
